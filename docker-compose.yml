@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  idarling:
+    image: southclaws/idarling:latest
+    build: .
+    ports:
+      - 7000:7000
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: gateway
+      traefik.http.routers.idarling.rule: Host(`${IDARLING_DOMAIN}`)
+      traefik.http.routers.idarling.entrypoints: https
+      traefik.http.routers.idarling.tls.certresolver: default
+      com.centurylinklabs.watchtower.enable: "true"
